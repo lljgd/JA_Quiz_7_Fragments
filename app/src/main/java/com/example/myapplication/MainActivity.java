@@ -26,8 +26,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        TextView questionString = findViewById(R.id.question_string);
-        Question currentQuestion = mQuestionBank[mCurrentIndex];
+        final TextView questionString = findViewById(R.id.question_string);
+        final Question currentQuestion = mQuestionBank[mCurrentIndex];
         questionString.setText(currentQuestion.getQuestionResId());
 
         Button trueButton = findViewById(R.id.true_button);
@@ -43,6 +43,17 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 onButtonClicked(false);
+            }
+        });
+
+        Button nextButton = findViewById(R.id.next_button);
+        nextButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mCurrentIndex = (mCurrentIndex + 1) % mQuestionBank.length;
+
+                final Question currentQuestion = mQuestionBank[mCurrentIndex];
+                questionString.setText(currentQuestion.getQuestionResId());
             }
         });
     }
