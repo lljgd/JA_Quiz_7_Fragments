@@ -33,6 +33,12 @@ public abstract class LoggingActivity extends AppCompatActivity {
     }
 
     @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        log("onSaveInstanceState");
+        super.onSaveInstanceState(outState);
+    }
+
+    @Override
     protected void onStop() {
         log("onStop");
         super.onStop();
