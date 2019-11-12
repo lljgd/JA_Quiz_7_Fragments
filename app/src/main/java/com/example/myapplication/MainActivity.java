@@ -6,9 +6,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.appcompat.app.AppCompatActivity;
-
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends LoggingActivity {
 
     private Question[] mQuestionBank = new Question[] {
             new Question(R.string.question_australia, true),
