@@ -10,10 +10,16 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class MainActivity extends AppCompatActivity {
 
-    private Question question = new Question(
-            R.string.question_text,
-            true
-    );
+    private Question[] mQuestionBank = new Question[] {
+            new Question(R.string.question_australia, true),
+            new Question(R.string.question_oceans, true),
+            new Question(R.string.question_mideast, false),
+            new Question(R.string.question_africa, false),
+            new Question(R.string.question_americas, true),
+            new Question(R.string.question_asia, true),
+    };
+
+    private int mCurrentIndex = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,7 +27,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         TextView questionString = findViewById(R.id.question_string);
-        questionString.setText(question.getQuestionResId());
+        Question currentQuestion = mQuestionBank[mCurrentIndex];
+        questionString.setText(currentQuestion.getQuestionResId());
 
         Button trueButton = findViewById(R.id.true_button);
         trueButton.setOnClickListener(new View.OnClickListener() {
@@ -41,7 +48,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void onButtonClicked(boolean answer) {
-        int toastMessage = (question.isCorrectAnswer() == answer) ?
+        Question currentQuestion = mQuestionBank[mCurrentIndex];
+        int toastMessage = (currentQuestion.isCorrectAnswer() == answer) ?
                 R.string.correct_toast :
                 R.string.incorrect_toast;
 
