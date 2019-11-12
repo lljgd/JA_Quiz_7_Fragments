@@ -8,6 +8,8 @@ import android.widget.Toast;
 
 public class MainActivity extends LoggingActivity {
 
+    private static final String KEY_CURRENT_INDEX = "key_current_index";
+
     private Question[] mQuestionBank = new Question[] {
             new Question(R.string.question_australia, true),
             new Question(R.string.question_oceans, true),
@@ -23,6 +25,10 @@ public class MainActivity extends LoggingActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        if (savedInstanceState != null) {
+            mCurrentIndex = savedInstanceState.getInt(KEY_CURRENT_INDEX);
+        }
 
         final TextView questionString = findViewById(R.id.question_string);
         final Question currentQuestion = mQuestionBank[mCurrentIndex];
@@ -54,6 +60,12 @@ public class MainActivity extends LoggingActivity {
                 questionString.setText(currentQuestion.getQuestionResId());
             }
         });
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putInt(KEY_CURRENT_INDEX, mCurrentIndex);
     }
 
     private void onButtonClicked(boolean answer) {
